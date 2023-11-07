@@ -33,10 +33,7 @@ class BaseModel():
         """
             Prints ,class name. id & dict in human readable format
         """
-
-        if (name is None):
-            name = BaseModel.class_name()
-        return (f'[{name}] ({self.id}) {self.__dict__}')
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """
