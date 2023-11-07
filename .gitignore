@@ -1,0 +1,4 @@
+# .swp files
+.*.sw*
+#.*pyc files
+*.pyc
