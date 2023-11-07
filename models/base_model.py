@@ -58,7 +58,7 @@ class BaseModel():
         result_dict['__class__'] = self.__class__.__name__
         result_dict['created_at'] = self.created_at.isoformat()
         result_dict['updated_at'] = self.updated_at.isoformat()
-
+        return (result_dict)
         #new_dict = self.__dict__
         #new_dict['__class__'] = Rectangle.class_name()
         #return (new_dict)
