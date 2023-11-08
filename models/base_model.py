@@ -36,6 +36,7 @@ class BaseModel():
             iso_time = datetime.now()
             self.created_at = self.updated_at = iso_time
             # updated_at - modified anytime we make a change in the object
+            storage.new(self)
 
     def __str__(self):
         """
@@ -52,6 +53,7 @@ class BaseModel():
             - Updates the attr 'updated_at' with the current datetime
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
