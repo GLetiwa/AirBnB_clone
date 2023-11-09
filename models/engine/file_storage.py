@@ -28,6 +28,12 @@ class FileStorage:
     def reload(self):
         """ deserializes json file to object"""
         from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
         try:
             with open(self.__file_path, "r") as file:
                 d_instances = json.load(file)
@@ -36,9 +42,8 @@ class FileStorage:
                 obj_name = d_instances[key]['__class__']
                 obj_attr = d_instances[key]
 
-                self.__objects[key] = eval(
-                        "{}(**{})".format(obj_name,obj_attr)
-                        )
+                self.__objects[key] = eval("{}(**{})".
+                                           format(obj_name,obj_attr))
                 # creation of the objects
                 # Not sure if there's a better way to serialise them
 

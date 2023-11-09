@@ -5,8 +5,16 @@
     - Module containing command interpreter
 """
 import cmd
+import sys
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,7 +22,8 @@ class HBNBCommand(cmd.Cmd):
         Commandline interpreter object
     """
     prompt = '(hbnb) '
-    all_classes = ['BaseModel']
+    all_classes = ['BaseModel', 'User', 'State', 'City',
+                   'Amenity', 'Place', 'Review']
 
     def emptyline(self):
         """
@@ -23,12 +32,14 @@ class HBNBCommand(cmd.Cmd):
         ...
 
     def do_quit(self, arg):
-        """quit - Exits the program"""
-        exit()
+        """quit - Exits the console"""
+
+        sys.exit()
 
     def do_EOF(self, arg):
-        """EOF - Exits the program"""
-        exit()
+        """EOF - Exits the console"""
+
+        sys.exit()
 
     def do_create(self, arg):
         "create- Creates & saves an Object(to a JSON file) & prints it's ID"
@@ -61,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        "all - prints all string representation of all instances"
+        "all - prints all string representation of all/specified instances"
 
         if (arg == "") or (arg in self.all_classes):
             for key in storage.all():
@@ -79,15 +90,18 @@ class HBNBCommand(cmd.Cmd):
             id_string = HBNBCommand.general_check(" ".join(params[:2]))
 
             if (id_string is not None):
+
                 x = storage.all()[id_string]
                 rem_str = " ".join(params[3:])
                 value = rem_str.split('"')[1]
+
                 setattr(x, params[2], value)
 
         else:
             if (len(params) < 3):
                 parse_arg = arg
                 err_string = "** attribute name missing **"
+
             else:
                 parse_arg = " ".join(arg.split()[:2])
                 err_string = "** value missing **"
