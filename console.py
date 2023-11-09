@@ -6,6 +6,7 @@
 """
 import cmd
 import sys
+import re
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -38,8 +39,34 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """EOF - Exits the console"""
-
+        print("")
         sys.exit()
+
+    def default(self, arg):
+        """ default - Interpret instance based commands """
+        commands = ['all', 'count', 'show', 'destroy', 'update']
+
+        string = re.search(r'([A-Za-z]{4,9})\.([a-z]{3,7})\("*(.*)"*\)', arg)
+
+        obj = string.group(1)
+        command = string.group(2)
+        param = string.group(3).strip('"')
+        print(obj, "|", command, "|", param)
+        if obj in self.all_classes and command in commands:
+            func = eval("self.do_{}".format(command))
+
+            if (command in ['show', 'destroy']):
+                func("{} {}".format(obj, param))
+            elif (command == 'all'):
+                func(obj)
+            elif (command == 'update'):
+                ...
+            else:
+                ... #count function
+
+
+        else:
+            print("*** Unknown syntax: {}".format(arg))
 
     def do_create(self, arg):
         "create- Creates & saves an Object(to a JSON file) & prints it's ID"
