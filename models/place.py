@@ -3,9 +3,10 @@
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """Place - Location object"""
-    
+
     def __init__(self, *args, **kwargs):
         """Initialization of child instance from BaseModel"""
         super().__init__(*args, **kwargs)

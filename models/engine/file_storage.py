@@ -3,7 +3,10 @@ import json
 
 
 class FileStorage:
-    """serializes instances to a JSON file and deserializes JSON file to instances"""
+    """
+    serializes instances
+    to a JSON file and deserializes JSON file to instances
+    """
     __file_path = "file.json"
     __objects = {}
 
@@ -18,11 +21,8 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        #create a dictionary to hold serialized objects
         obj_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
-        #open json file for writing
-        with open (self.__file_path, "w", encoding='utf-8') as file:
-            """write ob_dict to the file"""
+        with open(self.__file_path, "w", encoding='utf-8') as file:
             json.dump(obj_dict, file)
 
     def reload(self):
@@ -37,12 +37,7 @@ class FileStorage:
                 obj_attr = d_instances[key]
 
                 self.__objects[key] = eval(
-                        "{}(**{})".format(obj_name,obj_attr)
+                        "{}(**{})".format(obj_name, obj_attr)
                         )
-                # creation of the objects
-                # Not sure if there's a better way to serialise them
-
-
         except FileNotFoundError:
             return
-
