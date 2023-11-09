@@ -47,4 +47,3 @@ for key in f1.all():
     print(f1.all()[key].__dict__)
     print("-------------------")
 """
-

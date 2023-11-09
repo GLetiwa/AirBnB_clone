@@ -17,7 +17,6 @@ from models.place import Place
 from models.review import Review
 
 
-
 class HBNBCommand(cmd.Cmd):
     """
         Commandline interpreter object
@@ -62,9 +61,7 @@ class HBNBCommand(cmd.Cmd):
             elif (command == 'update'):
                 ...
             else:
-                ... #count function
-
-
+                ...
         else:
             print("*** Unknown syntax: {}".format(arg))
 
