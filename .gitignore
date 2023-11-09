@@ -2,3 +2,5 @@
 .*.sw*
 #.*pyc files
 *.pyc
+# main files
+main.py

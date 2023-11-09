@@ -5,4 +5,9 @@ from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    name = ""
+    """State - State location object(bro idk either)"""
+
+    def __init__(self, *args, **kwargs):
+        """Initialization of child instance from BaseModel"""
+        super().__init__(*args, **kwargs)
+        self.name = ""
