@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from models import storage
+"""from models import storage
 from models.base_model import BaseModel
 from models.user import User
 
@@ -26,7 +26,7 @@ my_user2.password = "root"
 my_user2.save()
 print(my_user2)
 
-"""x = "BaseModel"
+x = "BaseModel"
 r1 = eval("{}()".format(x))
 r2 = BaseModel()
 r1.name = "Omni man"
@@ -47,3 +47,9 @@ for key in f1.all():
     print(f1.all()[key].__dict__)
     print("-------------------")
 """
+
+from console import HBNBCommand
+
+h1 = HBNBCommand()
+
+h1.convert_dict('''"38f22813-2753-4d42-b37c-57a17f1e4f88", {'first_name': "John", "age": 89}''', 'BaseModel')

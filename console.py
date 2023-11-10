@@ -43,25 +43,34 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """ default - Interpret instance based commands """
-        commands = ['all', 'count', 'show', 'destroy', 'update']
+        commands = ['all', 'show', 'destroy', 'update']
 
-        string = re.search(r'([A-Za-z]{4,9})\.([a-z]{3,7})\("*(.*)"*\)', arg)
+        string = re.fullmatch(r'([A-Za-z]{4,9})\.([a-z]{3,7})\(("?.*"?)\)', arg)
 
-        obj = string.group(1)
-        command = string.group(2)
-        param = string.group(3).strip('"')
-        print(obj, "|", command, "|", param)
+        obj, command, param = string.groups()
+        
+        #print(obj, "|", command, "|", param)
         if obj in self.all_classes and command in commands:
             func = eval("self.do_{}".format(command))
 
             if (command in ['show', 'destroy']):
+                param = string.group(3).strip('"')
                 func("{} {}".format(obj, param))
-            elif (command == 'all'):
+
+            elif (command == 'all' and param == ''):
                 func(obj)
+
             elif (command == 'update'):
-                ...
+                try:
+                    id_no, dict_param = HBNBCommand().convert_dict(param)
+                except (ValueError):
+                    return
+                
+                for key in dict_param:
+                    string = '{} {} {} "{}"'.format(obj, id_no, key, dict_param[key])
+                    self.do_update(string)
             else:
-                ...
+                print("*** Unknown syntax: {}".format(arg))
         else:
             print("*** Unknown syntax: {}".format(arg))
 
@@ -156,6 +165,28 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
         return (None)
+
+    @staticmethod
+    def convert_dict(params):
+        dict_args = dict()
+
+        if (re.fullmatch(r'"(.+)", "(.+)", (.+)', params)):
+            id_no, attr, value = eval(params)
+            dict_args[attr] = value
+
+        elif (re.fullmatch(r'"(.+)", (\{.*\})', params)):
+            id_no, dict_args = eval(params)
+
+        else:
+            return (None)
+
+        return (id_no, dict_args)
+
+    """@staticmethod
+    def update_err(params, type):
+        if (re.search()):
+            if (re.search()):
+                if ()"""
 
 
 if __name__ == "__main__":
