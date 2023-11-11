@@ -3,15 +3,15 @@
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
-from models.state import State
-"Contains State Tests"
+from models.amenity import Amenity
+"Contains Amenity Tests"
 
-class TestState(unittest.TestCase):
-    """Has test cases for the State class"""
+class TestAmenity(unittest.TestCase):
+    """Has test cases for the Amenity class"""
 
     def setUp(self):
-        # Creates an instance of State for testing
-        self.model = State()
+        # Creates an instance of Amenity for testing
+        self.model = Amenity()
         self.attributes = {'id': str,
                            'created_at': datetime,
                            'updated_at': datetime,
@@ -19,7 +19,7 @@ class TestState(unittest.TestCase):
                            }
 
     def test_attributes(self):
-        # Ensures that the State instance has the expected attributes
+        # Ensures that the Amenity instance has the expected attributes
         for key in self.attributes:
             self.assertTrue(hasattr(self.model, key))
 
@@ -31,7 +31,7 @@ class TestState(unittest.TestCase):
 
     def test_str_representation(self):
         # Test if the __str__ method produces the expected string representation
-        expected_str = "[State] ({}) {}".format(self.model.id, self.model.__dict__)
+        expected_str = "[Amenity] ({}) {}".format(self.model.id, self.model.__dict__)
         self.assertEqual(str(self.model), expected_str)
 
     def test_save_method_updates_updated_at(self):
@@ -44,13 +44,13 @@ class TestState(unittest.TestCase):
         # Test if the to_dict method returns a dictionary with expected keys/values
         model_dict = self.model.to_dict()
         self.assertIsInstance(model_dict, dict)
-        self.assertEqual(model_dict['__class__'], 'State')
+        self.assertEqual(model_dict['__class__'], 'Amenity')
         self.assertEqual(model_dict['id'], self.model.id)
 
     def test_to_dict_includes_class_name(self):
         # Test if the to_dict method includes the __class__ key with the correct class name
         model_dict = self.model.to_dict()
-        self.assertEqual(model_dict['__class__'], 'State')
+        self.assertEqual(model_dict['__class__'], 'Amenity')
 
     def test_to_dict_datetime_format(self):
         # Test if the to_dict method formats datetime attributes correctly
@@ -77,8 +77,8 @@ class TestState(unittest.TestCase):
     def test_object_creation_with_args(self):
         #creates an object when *args is passed in that doesn't have it as args
         l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856'
-                 "Grace Letiwa", "Nairobi"]
-        obj = State(*l_arg)
+                 "Grace Letiwa"]
+        obj = Amenity(*l_arg)
 
         for key in self.attributes:
             self.assertTrue(hasattr(obj,key))
@@ -98,11 +98,11 @@ class TestState(unittest.TestCase):
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
             "created_at": "2023-11-09T09:54:01.928417",
             "updated_at": "2023-11-09T09:54:01.928417",
-            "__class__": 'State',
-            "name": "Grace Letiwa"
+            "name": "Grace Letiwa",
+            "state_id": "Nairobi"
             }
         
-        obj = State(**d_kwargs)
+        obj = Amenity(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
         #check if original attributes are included
@@ -115,6 +115,6 @@ class TestState(unittest.TestCase):
     def test_is_child_instance(self):
         #tests if it is a child isntance of BaseModel
 
-        self.assertTrue(isinstance(State(), BaseModel))
-        self.assertFalse(type(State()) is BaseModel)
+        self.assertTrue(isinstance(Amenity(), BaseModel))
+        self.assertFalse(type(Amenity()) is BaseModel)
 
