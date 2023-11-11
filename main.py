@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""from models import storage
+from models import storage
+"""
 from models.base_model import BaseModel
 from models.user import User
 
@@ -48,8 +49,17 @@ for key in f1.all():
     print("-------------------")
 """
 
-from console import HBNBCommand
+"""from console import HBNBCommand
 
 h1 = HBNBCommand()
 
 h1.convert_dict('''"38f22813-2753-4d42-b37c-57a17f1e4f88", {'first_name': "John", "age": 89}''', 'BaseModel')
+for key in storage.all():
+    print(type(storage.all()[key].created_at))
+"""
+from models.base_model import BaseModel
+
+b1 = BaseModel(**{"name": "Antony"})
+print(b1)
+#print(hasattr(b1, "__class__"))
+

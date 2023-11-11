@@ -24,6 +24,12 @@ class BaseModel():
                 - created_at - time instance was created
                 - updated_at - time when a change occurs in the instance
         """
+
+        attributes = {
+            'id': str(uuid.uuid4()),
+            'created_at': datetime.now(),
+            'updated_at': datetime.now()
+            }
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -31,6 +37,11 @@ class BaseModel():
                             datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
                 elif key != '__class__':
                     setattr(self, key, value)
+            
+            """for key, value in attributes.items():
+                if (hasattr(self, key) is False):
+                    setattr(self, key, value)"""
+            
         else:
             self.id = str(uuid.uuid4())
             iso_time = datetime.now()

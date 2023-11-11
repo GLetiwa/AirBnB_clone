@@ -1,42 +1,38 @@
 #!/usr/bin/python3
 
 import unittest
-from models.base_model import BaseModel
 from datetime import datetime
+from models.base_model import BaseModel
+from models.city import City
+"Contains City Tests"
 
+class TestCity(unittest.TestCase):
+    """Has test cases for the City class"""
 
-class TestBaseModel(unittest.TestCase):
-    """Has test cases for the BaseModel class and all it's instances"""
     def setUp(self):
-        # Creates an instance of the BaseModel for testing
-        self.model = BaseModel()
+        # Creates an instance of City for testing
+        self.model = City()
+        self.attributes = {'id': str,
+                           'created_at': datetime,
+                           'updated_at': datetime,
+                           'state_id': str,
+                           'name': str
+                           }
 
     def test_attributes(self):
-        # Ensures that the BaseModel instance has the expected attributes
-        self.assertTrue(hasattr(self.model, 'id'))
-        self.assertTrue(hasattr(self.model, 'created_at'))
-        self.assertTrue(hasattr(self.model, 'updated_at'))
+        # Ensures that the City instance has the expected attributes
+        for key in self.attributes:
+            self.assertTrue(hasattr(self.model, key))
 
-    def test_id_generation(self):
-        # Tests if id is generated and is unique for different instances
-        other_model = BaseModel()
-        self.assertNotEqual(self.model.id, other_model.id)
-
-    def test_id_is_string(self):
-        # Test if the id attribute is a string
-        self.assertIsInstance(self.model.id, str)
-
-    def test_created_at_type(self):
-        # Test if created_at is an instance of datetime
-        self.assertIsInstance(self.model.created_at, datetime)
-
-    def test_updated_at_type(self):
-        # Test if updated_at is an instance of datetime
-        self.assertIsInstance(self.model.updated_at, datetime)
+    def test_attribute_types(self):
+        # Test the attribute types of the created attributes
+        for key, value in self.attributes.items():
+            attr = getattr(self.model, key)
+            self.assertTrue(type(attr) is value)
 
     def test_str_representation(self):
         # Test if the __str__ method produces the expected string representation
-        expected_str = "[BaseModel] ({}) {}".format(self.model.id, self.model.__dict__)
+        expected_str = "[City] ({}) {}".format(self.model.id, self.model.__dict__)
         self.assertEqual(str(self.model), expected_str)
 
     def test_save_method_updates_updated_at(self):
@@ -49,13 +45,13 @@ class TestBaseModel(unittest.TestCase):
         # Test if the to_dict method returns a dictionary with expected keys/values
         model_dict = self.model.to_dict()
         self.assertIsInstance(model_dict, dict)
-        self.assertEqual(model_dict['__class__'], 'BaseModel')
+        self.assertEqual(model_dict['__class__'], 'City')
         self.assertEqual(model_dict['id'], self.model.id)
 
     def test_to_dict_includes_class_name(self):
         # Test if the to_dict method includes the __class__ key with the correct class name
         model_dict = self.model.to_dict()
-        self.assertEqual(model_dict['__class__'], 'BaseModel')
+        self.assertEqual(model_dict['__class__'], 'City')
 
     def test_to_dict_datetime_format(self):
         # Test if the to_dict method formats datetime attributes correctly
@@ -81,11 +77,13 @@ class TestBaseModel(unittest.TestCase):
 
     def test_object_creation_with_args(self):
         #creates an object when *args is passed in that doesn't have it as args
-        l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856']
-        obj = BaseModel(*l_arg)
-        self.assertTrue(hasattr(obj,'created_at'))
-        self.assertTrue(hasattr(obj, 'updated_at'))
-        self.assertTrue(hasattr(obj, 'id'))
+        l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856'
+                 "Grace Letiwa", "Nairobi"]
+        obj = City(*l_arg)
+
+        for key in self.attributes:
+            self.assertTrue(hasattr(obj,key))
+
 
         for i in l_arg:
             self.assertNotEqual(i, obj.id)
@@ -101,11 +99,12 @@ class TestBaseModel(unittest.TestCase):
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
             "created_at": "2023-11-09T09:54:01.928417",
             "updated_at": "2023-11-09T09:54:01.928417",
-            "__class__": "BaseModel",
-            "name": "Grace Letiwa"
+            "__class__": 'City',
+            "name": "Grace Letiwa",
+            "state_id": "Nairobi"
             }
         
-        obj = BaseModel(**d_kwargs)
+        obj = City(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
         #check if original attributes are included
@@ -114,29 +113,10 @@ class TestBaseModel(unittest.TestCase):
 
         for key in d_kwargs:
             self.assertTrue(hasattr(obj, key))
-
-    """def test_object_creation_with_kwargs_incomplete(self):
-        #creates an object when *kwargs without the original attributes is passed in
-
-        d_kwargs = {
-            "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
-            "name": "Grace Letiwa"
-            }
-        
-        obj = BaseModel(**d_kwargs)
-
-        attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
-        for i in attributes:
-            self.assertTrue(hasattr(obj, i))
-
-        for key in d_kwargs:
-            self.assertTrue(hasattr(obj, key))"""
-
-
-
-        
     
+    def test_is_child_instance(self):
+        #tests if it is a child isntance of BaseModel
 
-if __name__ == '__main__':
-    unittest.main()
+        self.assertTrue(isinstance(City(), BaseModel))
+        self.assertFalse(type(City()) is BaseModel)
+
