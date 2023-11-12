@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.city import City
 "Contains City Tests"
 
+
 class TestCity(unittest.TestCase):
     """Has test cases for the City class"""
 
@@ -31,8 +32,9 @@ class TestCity(unittest.TestCase):
             self.assertTrue(type(attr) is value)
 
     def test_str_representation(self):
-        # Test if the __str__ method produces the expected string representation
-        expected_str = "[City] ({}) {}".format(self.city.id, self.city.__dict__)
+        # Test if __str__ produces the expected string representation
+        expected_str = "[City] ({}) {}".format(
+                self.city.id, self.city.__dict__)
         self.assertEqual(str(self.city), expected_str)
 
     def test_save_method_updates_updated_at(self):
@@ -42,19 +44,19 @@ class TestCity(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.city.updated_at)
 
     def test_to_dict_method(self):
-        # Test if the to_dict method returns a dictionary with expected keys/values
+        # Test if to_dict returns a dictionary with expected keys/values
         model_dict = self.city.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'City')
         self.assertEqual(model_dict['id'], self.city.id)
 
     def test_to_dict_includes_class_name(self):
-        # Test if the to_dict method includes the __class__ key with the correct class name
+        # Test if to_dict includes the class_ key with the correct class name
         model_dict = self.city.to_dict()
         self.assertEqual(model_dict['__class__'], 'City')
 
     def test_to_dict_datetime_format(self):
-        # Test if the to_dict method formats datetime attributes correctly
+        # Test if to_dict formats datetime attributes correctly
         model_dict = self.city.to_dict()
         expected_format = '%Y-%m-%dT%H:%M:%S.%f'
         self.assertEqual(datetime.strptime(model_dict['created_at'], expected_format), self.city.created_at)
@@ -71,29 +73,28 @@ class TestCity(unittest.TestCase):
 
     def test_updated_at_after_save(self):
         # Test if created_at remains the same after calling save
-        updated_time = self.city.updated_at 
+        updated_time = self.city.updated_at
         self.city.save()
         self.assertNotEqual(updated_time, self.city.updated_at)
 
     def test_object_creation_with_args(self):
-        #creates an object when *args is passed in that doesn't have it as args
+        # creates object when args is passed in that doesn't have it as args
         l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856'
                  "Grace Letiwa", "Nairobi"]
         obj = City(*l_arg)
 
         for key in self.attributes:
-            self.assertTrue(hasattr(obj,key))
-
+            self.assertTrue(hasattr(obj, key))
 
         for i in l_arg:
             self.assertNotEqual(i, obj.id)
             self.assertNotEqual(i, obj.updated_at)
-            self.assertNotEqual(i,obj.created_at)
-        
+            self.assertNotEqual(i, obj.created_at)
+
         del obj
-    
+
     def test_object_creation_with_kwargs_complete(self):
-        #creates an object when *kwargs is passed in
+        # creates an object when *kwargs is passed in
 
         d_kwargs = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -103,24 +104,24 @@ class TestCity(unittest.TestCase):
             "name": "Grace Letiwa",
             "state_id": "Nairobi"
             }
-        
+
         obj = City(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
+        # check if original attributes are included
         for i in attributes:
             self.assertTrue(hasattr(obj, i))
 
         for key in d_kwargs:
             self.assertTrue(hasattr(obj, key))
-    
+
     def test_is_child_instance(self):
-        #tests if it is a child isntance of BaseModel
+        # tests if it is a child isntance of BaseModel
 
         self.assertTrue(isinstance(City(), BaseModel))
         self.assertFalse(type(City()) is BaseModel)
 
-    def test_update_attributes(self):#add to the rest
+    def test_update_attributes(self):
         # Test if updating attributes works as expected
         d_args = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -128,23 +129,23 @@ class TestCity(unittest.TestCase):
             'user_id': 'Ngong',
             'name': 'Harlequins',
             }
-        
+
         for key, value in d_args.items():
             setattr(self.city, key, value)
-        
+
         for key, value in d_args.items():
             attr = getattr(self.city, key)
             self.assertEqual(attr, value)
 
-    def test_default_values(self):#add to the rest
+    def test_default_values(self):
         # Test if the default values are set correctly
 
         strings = ['state_id', 'name']
 
-
         for key in self.attributes:
             if (key in strings):
                 self.assertEqual(getattr(self.city, key), "")
+
 
 if __name__ == '__main__':
     unittest.main()
