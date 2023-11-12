@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.review import Review
 "Contains Review Tests"
 
+
 class TestReview(unittest.TestCase):
     """Has test cases for the Review class"""
 
@@ -32,7 +33,7 @@ class TestReview(unittest.TestCase):
             self.assertTrue(type(attr) is value)
 
     def test_str_representation(self):
-        # Test if the __str__ method produces the expected string representation
+        # Test if  __str__ produces the expected string representation
         expected_str = "[Review] ({}) {}".format(self.review.id, self.review.__dict__)
         self.assertEqual(str(self.review), expected_str)
 
@@ -43,19 +44,19 @@ class TestReview(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.review.updated_at)
 
     def test_to_dict_method(self):
-        # Test if the to_dict method returns a dictionary with expected keys/values
+        # Test if to_dict returns a dictionary with expected keys/values
         model_dict = self.review.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'Review')
         self.assertEqual(model_dict['id'], self.review.id)
 
     def test_to_dict_includes_class_name(self):
-        # Test if the to_dict method includes the __class__ key with the correct class name
+        # Test if to_dict includes __class__ key with the correct class name
         model_dict = self.review.to_dict()
         self.assertEqual(model_dict['__class__'], 'Review')
 
     def test_to_dict_datetime_format(self):
-        # Test if the to_dict method formats datetime attributes correctly
+        # Test if to_dict  formats datetime attributes correctly
         model_dict = self.review.to_dict()
         expected_format = '%Y-%m-%dT%H:%M:%S.%f'
         self.assertEqual(datetime.strptime(model_dict['created_at'], expected_format), self.review.created_at)
@@ -72,29 +73,28 @@ class TestReview(unittest.TestCase):
 
     def test_updated_at_after_save(self):
         # Test if created_at remains the same after calling save
-        updated_time = self.review.updated_at 
+        updated_time = self.review.updated_at
         self.review.save()
         self.assertNotEqual(updated_time, self.review.updated_at)
 
     def test_object_creation_with_args(self):
-        #creates an object when *args is passed in that doesn't have it as args
+        # creates an object when args is passed in that doesn't have it as args
         l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856'
                  "Grace Letiwa", "Nairobi"]
         obj = Review(*l_arg)
 
         for key in self.attributes:
-            self.assertTrue(hasattr(obj,key))
-
+            self.assertTrue(hasattr(obj, key))
 
         for i in l_arg:
             self.assertNotEqual(i, obj.id)
             self.assertNotEqual(i, obj.updated_at)
-            self.assertNotEqual(i,obj.created_at)
-        
+            self.assertNotEqual(i, obj.created_at)
+
         del obj
-    
+
     def test_object_creation_with_kwargs_complete(self):
-        #creates an object when *kwargs is passed in
+        # creates an object when *kwargs is passed in
 
         d_kwargs = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -105,19 +105,19 @@ class TestReview(unittest.TestCase):
             "place_id": "Nairobi",
             "user_id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce"
             }
-        
+
         obj = Review(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
+        # check if original attributes are included
         for i in attributes:
             self.assertTrue(hasattr(obj, i))
 
         for key in d_kwargs:
             self.assertTrue(hasattr(obj, key))
-    
+
     def test_is_child_instance(self):
-        #tests if it is a child isntance of BaseModel
+        # tests if it is a child isntance of BaseModel
 
         self.assertTrue(isinstance(Review(), BaseModel))
         self.assertFalse(type(Review()) is BaseModel)
@@ -136,15 +136,16 @@ class TestReview(unittest.TestCase):
         for key, value in d_args.items():
             attr = getattr(self.review, key)
             self.assertEqual(attr, value)
-    
-    def test_default_values(self):#add to the rest
-    # Test if the default values are set correctly
+
+    def test_default_values(self):
+        # Test if the default values are set correctly
 
         strings = ['text', 'place_id', 'user_id']
 
         for key in self.attributes:
             if (key in strings):
                 self.assertEqual(getattr(self.review, key), "")
+
 
 if __name__ == '__main__':
     unittest.main()
