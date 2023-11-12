@@ -51,4 +51,6 @@ for key in f1.all():
 from models.place import Place
 kw = {'id': '6c4be621-c544-48b9-9070-47c01ef07259', 'created_at': '2023-11-12T22:57:14.555572', 'updated_at': '2023-11-12T22:57:14.555572', 'city_id': '', 'user_id': '', 'name': '', 'description': '', 'number_rooms': 0, 'max_guest': 20, 'price_by_night': 10, 'latitude': 110.0, 'longitude': 10.0, 'amenity_ids': [], '__class__': 'Place'}
 p1 = Place()
+print(p1.__dict__)
+print("==============")
 print(p1.to_dict())
