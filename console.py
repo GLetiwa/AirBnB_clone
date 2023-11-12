@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """ default - Interpret instance based commands """
-        commands = ['all', 'show', 'destroy', 'update']
+        commands = ['all', 'show', 'destroy', 'update', 'count']
 
         string = re.fullmatch(
             r'([A-Za-z]{4,9})\.([a-z]{3,7})\(("?.*"?)\)', arg)
@@ -52,14 +52,18 @@ class HBNBCommand(cmd.Cmd):
 
         # print(obj, "|", command, "|", param)
         if obj in self.all_classes and command in commands:
-            func = eval("self.do_{}".format(command))
+            if (command != 'count'):
+                func = eval("self.do_{}".format(command))
 
             if (command in ['show', 'destroy']):
                 param = string.group(3).strip('"')
                 func("{} {}".format(obj, param))
 
-            elif (command == 'all' and param == ''):
-                func(obj)
+            elif (command in ['all', 'count'] and param == ''):
+                if command == 'all':
+                    func(obj)
+                else:
+                    HBNBCommand.count(obj)
 
             elif (command == 'update'):
                 try:
@@ -184,11 +188,18 @@ class HBNBCommand(cmd.Cmd):
 
         return (id_no, dict_args)
 
-    """@staticmethod
-    def update_err(params, type):
-        if (re.search()):
-            if (re.search()):
-                if ()"""
+    @classmethod
+    def count(cls, arg):
+        "count - prints number of existing specified instance"
+
+        value = 0
+        if (arg == "") or (arg in cls.all_classes):
+            for key in storage.all():
+                if (arg in key):
+                    value += 1
+            print(value)
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == "__main__":
