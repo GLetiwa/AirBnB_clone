@@ -35,8 +35,9 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.model.updated_at, datetime)
 
     def test_str_representation(self):
-        # Test if the __str__ method produces the expected string representation
-        expected_str = "[BaseModel] ({}) {}".format(self.model.id, self.model.__dict__)
+        # Test if the __str__ method produces expected string representation
+        expected_str = "[BaseModel] ({}) {}".format(self.model.id,
+        self.model.__dict__)
         self.assertEqual(str(self.model), expected_str)
 
     def test_save_method_updates_updated_at(self):
@@ -46,23 +47,25 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.model.updated_at)
 
     def test_to_dict_method(self):
-        # Test if the to_dict method returns a dictionary with expected keys/values
+        # Test the to_dict method returns a dict with expected keys/values
         model_dict = self.model.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
         self.assertEqual(model_dict['id'], self.model.id)
 
     def test_to_dict_includes_class_name(self):
-        # Test if the to_dict method includes the __class__ key with the correct class name
+        # Test if to_dict has the __class__ key with the correct class name
         model_dict = self.model.to_dict()
         self.assertEqual(model_dict['__class__'], 'BaseModel')
 
     def test_to_dict_datetime_format(self):
-        # Test if the to_dict method formats datetime attributes correctly
+        # Test if to_dict method formats datetime attributes correctly
         model_dict = self.model.to_dict()
         expected_format = '%Y-%m-%dT%H:%M:%S.%f'
-        self.assertEqual(datetime.strptime(model_dict['created_at'], expected_format), self.model.created_at)
-        self.assertEqual(datetime.strptime(model_dict['updated_at'], expected_format), self.model.updated_at)
+        self.assertEqual(datetime.strptime(model_dict['created_at'],
+        expected_format), self.model.created_at)
+        self.assertEqual(datetime.strptime(model_dict['updated_at'],
+        expected_format), self.model.updated_at)
 
     def test_created_at_before_save(self):
         # Test if created_at and updated_at are the same before calling save
@@ -75,27 +78,27 @@ class TestBaseModel(unittest.TestCase):
 
     def test_updated_at_after_save(self):
         # Test if created_at remains the same after calling save
-        updated_time = self.model.updated_at 
+        updated_time = self.model.updated_at
         self.model.save()
         self.assertNotEqual(updated_time, self.model.updated_at)
 
     def test_object_creation_with_args(self):
-        #creates an object when *args is passed in that doesn't have it as args
+        # creates an object when args is passed in that doesn't have it as args
         l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856']
         obj = BaseModel(*l_arg)
-        self.assertTrue(hasattr(obj,'created_at'))
+        self.assertTrue(hasattr(obj, 'created_at'))
         self.assertTrue(hasattr(obj, 'updated_at'))
         self.assertTrue(hasattr(obj, 'id'))
 
         for i in l_arg:
             self.assertNotEqual(i, obj.id)
             self.assertNotEqual(i, obj.updated_at)
-            self.assertNotEqual(i,obj.created_at)
-        
+            self.assertNotEqual(i, obj.created_at)
+
         del obj
-    
+
     def test_object_creation_with_kwargs_complete(self):
-        #creates an object when *kwargs is passed in
+        # creates an object when *kwargs is passed in
 
         d_kwargs = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -104,39 +107,17 @@ class TestBaseModel(unittest.TestCase):
             "__class__": "BaseModel",
             "name": "Grace Letiwa"
             }
-        
+
         obj = BaseModel(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
+        # check if original attributes are included
         for i in attributes:
             self.assertTrue(hasattr(obj, i))
 
         for key in d_kwargs:
             self.assertTrue(hasattr(obj, key))
 
-    """def test_object_creation_with_kwargs_incomplete(self):
-        #creates an object when *kwargs without the original attributes is passed in
-
-        d_kwargs = {
-            "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
-            "name": "Grace Letiwa"
-            }
-        
-        obj = BaseModel(**d_kwargs)
-
-        attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
-        for i in attributes:
-            self.assertTrue(hasattr(obj, i))
-
-        for key in d_kwargs:
-            self.assertTrue(hasattr(obj, key))"""
-
-
-
-        
-    
 
 if __name__ == '__main__':
     unittest.main()
