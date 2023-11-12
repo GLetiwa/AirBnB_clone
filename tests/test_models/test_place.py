@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 
 from models.place import Place
 
+
 class TestPlace(unittest.TestCase):
     def setUp(self):
         # Create an instance of the Place for testing
@@ -20,8 +21,8 @@ class TestPlace(unittest.TestCase):
             'description': str,
             'number_rooms': int,
             'number_bathrooms': int,
-            'max_guest':int,
-            'price_by_night':int,
+            'max_guest': int,
+            'price_by_night': int,
             'latitude': float,
             'longitude': float,
             'amenity_ids': list
@@ -39,9 +40,9 @@ class TestPlace(unittest.TestCase):
             self.assertTrue(type(attr) is value)
 
     def test_str_representation(self):
-        # Test if the __str__ method produces the expected string representation
+        # Test if __str__ produces the expected string representation
         expected_str = "[Place] ({}) {}".format(self.x.id, self.x.__dict__)
-        self.assertEqual(str(self.x), expected_str)  
+        self.assertEqual(str(self.x), expected_str)
 
     def test_save_method_updates_updated_at(self):
         # Test if calling save updates the updated_at attribute
@@ -50,14 +51,14 @@ class TestPlace(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.x.updated_at)
 
     def test_to_dict_method(self):
-        # Test if the to_dict method returns a dictionary with expected keys/values
+        # Test if to_dict  returns a dictionary with expected keys/values
         model_dict = self.x.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'Place')
         self.assertEqual(model_dict['id'], self.x.id)
 
     def test_to_dict_datetime_format(self):
-        # Test if the to_dict method formats datetime attributes correctly
+        # Test if to_dict formats datetime attributes correctly
         model_dict = self.x.to_dict()
         expected_format = '%Y-%m-%dT%H:%M:%S.%f'
         self.assertEqual(datetime.strptime(model_dict['created_at'], expected_format), self.x.created_at)
@@ -74,29 +75,27 @@ class TestPlace(unittest.TestCase):
 
     def test_updated_at_after_save(self):
         # Test if created_at remains the same after calling save
-        updated_time = self.x.updated_at 
+        updated_time = self.x.updated_at
         self.x.save()
         self.assertNotEqual(updated_time, self.x.updated_at)
 
     def test_object_creation_with_args(self):
-        #creates an object when *args is passed in that doesn't have it as args
+        # creates an object when args is passed
         l_arg = ['2023-11-11T06:02:57.369856', '2023-11-11T06:02:57.369856'
                  "Grace Letiwa", "Nairobi"]
         obj = Place(*l_arg)
 
         for key in self.attributes:
-            self.assertTrue(hasattr(obj,key))
-
-
+            self.assertTrue(hasattr(obj, key))
         for i in l_arg:
             self.assertNotEqual(i, obj.id)
             self.assertNotEqual(i, obj.updated_at)
-            self.assertNotEqual(i,obj.created_at)
-        
+            self.assertNotEqual(i, obj.created_at)
+
         del obj
 
     def test_object_creation_with_kwargs_complete(self):
-        #creates an object when *kwargs is passed in
+        # creates an object when *kwargs is passed in
 
         d_kwargs = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -108,30 +107,30 @@ class TestPlace(unittest.TestCase):
             'description': 'Club',
             'number_rooms': 10,
             'number_bathrooms': 3,
-            'max_guest':14,
-            'price_by_night':2500,
+            'max_guest': 14,
+            'price_by_night': 2500,
             'latitude': 63.4,
             'longitude': 23.1,
             'amenity_ids': ["a", "b", 'c']
             }
-        
+
         obj = Place(**d_kwargs)
 
         attributes = ['id', "created_at", 'updated_at']
-        #check if original attributes are included
+        # check if original attributes are included
         for i in attributes:
             self.assertTrue(hasattr(obj, i))
 
         for key in d_kwargs:
             self.assertTrue(hasattr(obj, key))
-    
+
     def test_is_child_instance(self):
-        #tests if it is a child isntance of BaseModel
+        # tests if it is a child isntance of BaseModel
 
         self.assertTrue(isinstance(Place(), BaseModel))
         self.assertFalse(type(Place()) is BaseModel)
 
-    def test_update_attributes(self):#add to the rest
+    def test_update_attributes(self):
         # Test if updating attributes works as expected
         d_args = {
             "id": "bca8e814-2fbc-47f0-8c29-1baf7c98afce",
@@ -141,21 +140,21 @@ class TestPlace(unittest.TestCase):
             'description': 'Club',
             'number_rooms': 10,
             'number_bathrooms': 3,
-            'max_guest':14,
-            'price_by_night':2500,
+            'max_guest': 14,
+            'price_by_night': 2500,
             'latitude': 63.4,
             'longitude': 23.1,
             'amenity_ids': ["a", "b", 'c']
             }
-        
+
         for key, value in d_args.items():
             setattr(self.x, key, value)
-        
+
         for key, value in d_args.items():
             attr = getattr(self.x, key)
             self.assertEqual(attr, value)
 
-    def test_default_values(self):#add to the rest
+    def test_default_values(self):
         # Test if the default values are set correctly
 
         strings = ['city_id', 'user_id', 'name', 'description']
@@ -169,8 +168,8 @@ class TestPlace(unittest.TestCase):
                 self.assertEqual(getattr(self.x, key), 0)
             elif (key in floats):
                 self.assertEqual(getattr(self.x, key), 0.0)
-            elif (key == 'amenity_ids'): 
-                  self.assertEqual(self.x.amenity_ids, [])
+            elif (key == 'amenity_ids'):
+                self.assertEqual(self.x.amenity_ids, [])
 
 
 if __name__ == '__main__':
