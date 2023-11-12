@@ -37,7 +37,7 @@ class TestBaseModel(unittest.TestCase):
     def test_str_representation(self):
         # Test if the __str__ method produces expected string representation
         expected_str = "[BaseModel] ({}) {}".format(self.model.id,
-        self.model.__dict__)
+                                                    self.model.__dict__)
         self.assertEqual(str(self.model), expected_str)
 
     def test_save_method_updates_updated_at(self):

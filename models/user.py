@@ -10,8 +10,11 @@ class User(BaseModel):
     Has specified attributes; email, password, first name & last name
     """
     def __init__(self, *args, **kwargs):
+        """Initialization of child instance from BaseModel"""
+
+        if (not kwargs):
+            self.email = ""
+            self.password = ""
+            self.first_name = ""
+            self.last_name = ""
         super().__init__(*args, **kwargs)
-        self.email = ""
-        self.password = ""
-        self.first_name = ""
-        self.last_name = ""

@@ -8,6 +8,8 @@ class City(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """Initialization of child instance from BaseModel"""
+
+        if (not kwargs):
+            self.state_id = ""
+            self.name = ""
         super().__init__(*args, **kwargs)
-        self.state_id = ""
-        self.name = ""

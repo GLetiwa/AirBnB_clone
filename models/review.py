@@ -9,7 +9,14 @@ class Review(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """Initialization of child instance from BaseModel"""
+
+        if (not kwargs):
+            dict_args = {
+                'place_id': "",
+                'user_id': "",
+                'text': ""
+                }
+            for key, value in dict_args.items():
+                setattr(self, key, value)
+
         super().__init__(*args, **kwargs)
-        self.place_id = ""
-        self.user_id = ""
-        self.text = ""
