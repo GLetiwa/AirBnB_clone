@@ -52,4 +52,5 @@ from console import HBNBCommand
 
 h1 = HBNBCommand()
 
-h1.convert_dict('''"38f22813-2753-4d42-b37c-57a17f1e4f88", {'first_name': "John", "age": 89}''', 'BaseModel')
+h1.convert_dict('''"38f22813-2753-4d42-b37c-57a17f1e4f88",
+{'first_name': "John", "age": 89}''', 'BaseModel')
