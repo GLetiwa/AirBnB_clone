@@ -45,11 +45,12 @@ class HBNBCommand(cmd.Cmd):
         """ default - Interpret instance based commands """
         commands = ['all', 'show', 'destroy', 'update']
 
-        string = re.fullmatch(r'([A-Za-z]{4,9})\.([a-z]{3,7})\(("?.*"?)\)', arg)
+        string = re.fullmatch(
+            r'([A-Za-z]{4,9})\.([a-z]{3,7})\(("?.*"?)\)', arg)
 
         obj, command, param = string.groups()
-        
-        #print(obj, "|", command, "|", param)
+
+        # print(obj, "|", command, "|", param)
         if obj in self.all_classes and command in commands:
             func = eval("self.do_{}".format(command))
 
@@ -65,9 +66,10 @@ class HBNBCommand(cmd.Cmd):
                     id_no, dict_param = HBNBCommand().convert_dict(param)
                 except (ValueError):
                     return
-                
+
                 for key in dict_param:
-                    string = '{} {} {} "{}"'.format(obj, id_no, key, dict_param[key])
+                    string = '{} {} {} "{}"'.format(
+                        obj, id_no, key, dict_param[key])
                     self.do_update(string)
             else:
                 print("*** Unknown syntax: {}".format(arg))
