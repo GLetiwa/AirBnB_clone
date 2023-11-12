@@ -12,9 +12,9 @@ class User(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialization of child instance from BaseModel"""
 
-        if (not kwargs):
-            self.email = ""
-            self.password = ""
-            self.first_name = ""
-            self.last_name = ""
+
+        self.email = ""
+        self.password = ""
+        self.first_name = ""
+        self.last_name = ""
         super().__init__(*args, **kwargs)
