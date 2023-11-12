@@ -27,7 +27,7 @@ class TestFileStorage(unittest.TestCase):
         "test initialization"
 
         self.assertIsInstance(self.f_storage, FileStorage)
-    
+
     def test_all(self):
         "all return value"
         self.assertIsInstance(self.f_storage.all(), dict)
@@ -39,13 +39,12 @@ class TestFileStorage(unittest.TestCase):
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
 
             self.f_storage.new(obj)
-            
+
             self.assertTrue(key in self.f_storage.all())
 
     def test_save(self):
         "save method testing"
 
-        
         try:
             self.f_storage.save()
             with open("file.json", "r") as file:
@@ -54,13 +53,13 @@ class TestFileStorage(unittest.TestCase):
             self.f_storage.save()
             with open("file.json", "r") as file:
                 file_cont2 = json.load(file)
-            
+
             self.assertFalse(file_cont1 == file_cont2)
 
             self.f_storage.save()
             with open("file.json", "r") as file:
                 file_cont3 = json.load(file)
-            
+
             self.assertTrue(file_cont2 == file_cont3)
 
         except FileNotFoundError as e:
@@ -69,7 +68,7 @@ class TestFileStorage(unittest.TestCase):
     def test_reload(self):
         try:
             self.f_storage.save()
-            
+
             self.f_storage.new(Amenity())
             dict_current = self.f_storage.all()
 
@@ -77,7 +76,5 @@ class TestFileStorage(unittest.TestCase):
 
             self.assertFalse(dict_current != self.f_storage.all())
 
-
         except FileNotFoundError as e:
             self.assertTrue(e is FileNotFoundError)
-
