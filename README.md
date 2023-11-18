@@ -8,9 +8,9 @@ Command line Interpreter used to manipulate data
 ## Usage
 - For set commands
 
-      \<command\> \<Object\> \<optional parameter(s)\>
+      <command> <Object> <optional parameter(s)>
 - For extra commands
 
-      \<Object\>.\<command\>(\<optional parameter(s)\>
+      <Object>.<command>(<optional parameter(s)>
 
 - Type into the console "help" for a list of the available commands
