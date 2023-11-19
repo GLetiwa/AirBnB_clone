@@ -8,7 +8,7 @@
     justify-content: flex-end;
 }
 
-.button_f {
+.button-search {
     font-size: 18px;
     background-color: #ff5a5f;
     color: #ffffff;
@@ -19,6 +19,6 @@
     margin-right: 30px;
     transition-duration: 0ms;
 }
-.button_f:hover{
+.button-search:hover{
     opacity: 90%;
 }
