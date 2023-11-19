@@ -1,14 +1,14 @@
 header {
+    position: relative;
     background-color: white;
-    position: fixed;
-    height: 70px;
+    height: 69px;
     width: 100%;
+
     border-bottom: 1px solid #CCCCCC;
-    /* logo */
 }
+
 .logo {
     background: no-repeat url("../images/logo.png");
-    width: 142%;
+    width: 142px;
     height: 70px;
-
 }
