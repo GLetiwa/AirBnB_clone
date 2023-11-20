@@ -29,6 +29,7 @@ div section article {
 div section article div{
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 1%;
 
 }
 /* h2 positioning selectors*/
@@ -60,4 +61,67 @@ section article div h2 {
     border-radius: 100%;
     min-width: 60px;
     height: 60px;
+}
+
+.information {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80px;
+    border-top: #DDDDDD 1px solid;
+    border-bottom: #DDDDDD 1px solid;
+}
+
+.max_guest {
+
+    background: no-repeat url("../images/icon_group.png");
+    width: 100px;
+    height: 40px;
+}
+
+.number_rooms {
+    background: no-repeat url("../images/icon_bed.png");
+    height: 40px;
+    width: 100px;
+}
+
+.number_bathrooms {
+    background: no-repeat url("../images/icon_bath.png");
+    height: 40px;
+    width: 100px;
+}
+
+.flex-div-container {
+    display:flex;
+    flex-direction: column;
+    justify-items: flex-end;
+    margin: 0% 5% 0% auto;
+    padding: 0;
+    margin: 0;
+}
+
+.p-config {
+    padding:0%;
+    margin: 0%;
+    height: 50%;
+    font-size: 20px;
+    width:100%;
+    
+}
+
+.user {
+    font-weight: bold;
+    font-size: 20px;
+    justify-content: start;
+    margin: 3% 0%;
+}
+
+.user-p {
+    font-weight: normal;
+}
+
+.description {
+    font-size: 20px;
+    justify-content: start;
+    margin: 3% 0%;
 }
