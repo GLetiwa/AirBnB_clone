@@ -36,12 +36,16 @@
     height: 100%;
     text-align: start;
 }
-
-.amenities{
+.state-amenities-config{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items:start;
+}
+
+.amenities{
+
 
     margin: 0px;
     padding: 0px;
@@ -51,11 +55,6 @@
 }
 
 .locations {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-
     margin: 0px;
     padding: 0px;
     height: 100%;
@@ -75,4 +74,5 @@
     padding-left: 15%;
 
 }
+
 
