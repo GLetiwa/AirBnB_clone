@@ -85,6 +85,8 @@
 }
 .list-config {
     list-style-type: none;
+    padding: 0% 0% 5% 15%;
+    padding-left: 15%;
 }
 
 .state-amenities-config:hover .popover{
@@ -95,10 +97,12 @@
 .popover {
     display: none; /* change later */
     flex-direction: column;
+    justify-content: start;
     position: relative;
     padding: 0%;
+    justify-content: center;
     /* padding-left: 5%; */
-    padding-bottom: 10%;
+    /* padding-bottom: 10%; */
     width: 100%;
     margin: 0%;
 
@@ -108,13 +112,14 @@
 }
 
 ul li h2 {
-    margin-bottom: 0%;
-    margin-left: 5%;
+    padding: 10%;
+    padding-top: 5%;
+    padding-bottom: 0%;
+    margin: 0;
 }
 
 .amenities-config{
-    padding-top: 10%;
-    padding-left:10%;
-    width: 90%;
+    padding: 5%;
+    padding-left: 15%;
+    width: 80%;
 }
-

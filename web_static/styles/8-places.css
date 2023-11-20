@@ -1,0 +1,63 @@
+/* header override : font size doesn't trickle down to <h> tags */
+.h1-container {
+    display: flex;
+    font-size: 30px;
+    margin: 0%;
+    margin-top: 20px;
+    
+}
+/* places class */
+.places {
+    text-align: left;
+    font-size: 30px;
+
+
+}
+
+/* Multiple "places"  */
+div section article {
+    /* display: flex;
+    justify-content: flex-end; */
+
+    width: 390px;
+    margin: 20px;
+    padding: 20px;
+
+    border: #ff5a5f 1px solid;
+    border-radius: 4px;
+}
+div section article div{
+    display: flex;
+    justify-content: flex-end;
+
+}
+/* h2 positioning selectors*/
+section article div h2 {
+    display: flex;
+    font-size: 30px;
+    align-content: start;
+    justify-content: center;
+
+    margin: 0% auto auto auto;
+    margin-top: 0%;
+}
+
+/* "multiple places" spacing class */
+.div-section-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.price_by_night {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ff5a5f;
+    border: #ff5a5f 4px solid;
+    border-radius: 100%;
+    min-width: 60px;
+    height: 60px;
+}
