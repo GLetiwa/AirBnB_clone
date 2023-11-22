@@ -1,44 +1,52 @@
+.places {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.article {
+    width: calc(33.33% - 20px); /* Three articles in a row with 20px margin */
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.article h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.price_by_night {
+    font-size: 30px;
+    color: #FF5A5F;
+    border: 4px solid #FF5A5F;
+    border-radius: 4px;
+    min-width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.information,
+.user,
+.description,
 .amenities,
 .reviews {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
-.amenities .title,
-.reviews .title {
-    border-bottom: 1px solid #DDDDDD;
-}
-
-.amenities .title h2,
-.reviews .title h2 {
-    font-size: 16px;
-}
-
-.amenities .list,
-.reviews .list {
-    list-style: none;
-    padding: 0;
-}
-
-.amenities .list li,
-.reviews .list li {
+.information,
+.amenities,
+.reviews {
     display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-bottom: 10px;
+    flex-direction: column;
 }
 
-.amenities .list li::before,
-.reviews .list li::before {
-    content: '\2022'; /* Bullet point */
-    margin-right: 10px;
-}
-
-.reviews h3 {
-    font-size: 14px;
-}
-
-.reviews p {
-    font-size: 12px;
-    margin-top: 5px;
-}
+.information > div,
 
