@@ -50,3 +50,18 @@
 
 .information > div,
 
+/* responsive design */
+@media (max-width: 780px) {
+	.places {
+		flex-direction: column;
+	}
+
+	.article {
+		width: 100%;
+	}
+
+	.price_by_night {
+		position: static;
+		margin-top: 20px;
+	}
+}
